@@ -9,11 +9,12 @@ fmts = {'g', 'm', 'k'};
 names = {'linear regression', 'Fisher''s linear discriminant', ...
     'logistic regression'};
 data_generators = {
-    @() anti_linear_regression();
+    @() anti_linear_regression1();
     @() anti_fisher_discriminant();
-    @() anti_logistic_regression();
+    @() anti_logistic_regression1();
+    @() anti_logistic_regression2();
     };
-titles = {'data1', 'data2', 'data3'};
+titles = {'data1', 'data2', 'data3', 'data4'};
 
 close all;
 AUCs = zeros(length(data_generators), length(model_trainers));
@@ -41,21 +42,41 @@ for d = 1:length(data_generators)
 end
 AUCs
 
-function[X, labels] = anti_logistic_regression()
+function[X, labels] = anti_logistic_regression1()
 num_pos = 1000;
 num_neg = 1000;
 pos = [get_data([0, 0.2], [1, 0.1], num_pos*9/10);
     get_data([1, -1], [0.1, 0.1], num_pos/10);
-    get_data([0, 1], [0.1, 0.1], num_pos/10);
     ];
 neg = [get_data([0, -0.2], [1, 0.1], num_neg*9/10);
     get_data([-1, 1], [0.1, 0.1], num_neg/10)
-    get_data([0, -1], [0.1, 0.1], num_neg/10)
     ];
 X = [pos; neg];
 labels = [ones(length(pos), 1); -ones(length(neg), 1)];
 
-function[X, labels] = anti_linear_regression()
+function[X, labels] = anti_logistic_regression2()
+num_pos = 1000;
+num_neg = 1000;
+pos = [get_data([0, 0.2], [1, 0.1], num_pos*9/10);
+    get_data([1, -1], [0.1, 0.1], num_pos/10);
+    get_data([-1, 2], [0.1, 0.1], num_pos/10);
+    ];
+neg = [get_data([0, -0.2], [1, 0.1], num_neg*9/10);
+    get_data([-1, 1], [0.1, 0.1], num_neg/10)
+    get_data([1, -2], [0.1, 0.1], num_neg/10)
+    ];
+X = [pos; neg];
+labels = [ones(length(pos), 1); -ones(length(neg), 1)];
+
+function[X, labels] = anti_linear_regression1()
+num_pos = 1000;
+num_neg = 1000;
+pos = get_data([-1, 0.5], [2, 0.5], num_pos);
+neg = get_data([1, -0.5], [2, 0.5], num_neg);
+X = [pos; neg];
+labels = [ones(length(pos), 1); -ones(length(neg), 1)];
+
+function[X, labels] = anti_linear_regression2()
 num_pos = 1000;
 num_neg = 1000;
 pos = [get_data([-0.5, 0.5], [0.45, 0.45], num_pos*9/10);
