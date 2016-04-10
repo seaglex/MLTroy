@@ -1,18 +1,19 @@
 function[] = test_linear_classifiers()
-c = 0;
+c = 1;
 model_trainers = {
     @(X, T) train_linear_regression(X, T, c);
     @(X, T) train_fisher_discriminant(X, T, c);
     @(X, T) train_logistic_regression(X, T, c);
+    @(X, T) train_svm(X, T, c);
     };
-fmts = {'g', 'm', 'k'};
+fmts = {'g', 'm', 'k', 'y'};
 names = {'linear regression', 'Fisher''s linear discriminant', ...
-    'logistic regression'};
+    'logistic regression', 'linear svm'};
 data_generators = {
     @() anti_linear_regression1();
-    @() anti_fisher_discriminant();
-    @() anti_logistic_regression1();
-    @() anti_logistic_regression2();
+    %@() anti_fisher_discriminant();
+    %@() anti_logistic_regression1();
+    %@() anti_logistic_regression2();
     };
 titles = {'data1', 'data2', 'data3', 'data4'};
 
@@ -69,8 +70,8 @@ X = [pos; neg];
 labels = [ones(length(pos), 1); -ones(length(neg), 1)];
 
 function[X, labels] = anti_linear_regression1()
-num_pos = 1000;
-num_neg = 1000;
+num_pos = 100;
+num_neg = 100;
 pos = get_data([-1, 0.5], [2, 0.5], num_pos);
 neg = get_data([1, -0.5], [2, 0.5], num_neg);
 X = [pos; neg];

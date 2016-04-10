@@ -19,4 +19,4 @@ Sw = Sw + difference'*difference;
 
 w = pinv(Sw + eye(2)*c) * (mPos-mNeg)';
 b = -mAll * w;
-model = struct('w', w, 'b', b);
+model = struct('name', 'glm', 'w', w, 'b', b);

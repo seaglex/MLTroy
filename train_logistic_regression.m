@@ -9,7 +9,8 @@ function[model] = train_logistic_regression(X, T, c)
 dim = size(X, 2);
 wb = fminunc(@(wb) cost_grad(X, T, wb, c), [0, 1, 0]', ...
     optimset('GradObj', 'on'));
-model = struct('w', wb(1:end-1), 'b', wb(end), 'active_func', @sigmoid);
+model = struct('name', 'glm', ...
+    'w', wb(1:end-1), 'b', wb(end), 'active_func', @sigmoid);
 
 function[s] = sigmoid(x)
 s = 1.0 ./ (1.0 + exp(-x));

@@ -14,4 +14,4 @@ Cxx = difference' * difference;
 Cxy = difference' * (T-mT);
 w = pinv(Cxx + eye(2)*c) * Cxy;
 b = mX*w + mT;
-model = struct('w', w, 'b', b);
+model = struct('name', 'glm', 'w', w, 'b', b);
